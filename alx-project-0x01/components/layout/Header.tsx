@@ -1,22 +1,25 @@
-import Link from "next/link"
-import Image from "next/image"
+import Link from 'next/link'; 
 
-const Header = () => {
-    return (
-        <header className="bg-white shadow-md">
-            <div className="max-w-6xl mx-auto px-4">
-                <div className="flex justify-between">
-                    <div className="flex space-x-7">
-                        <div className="flex items-center py-4 px-2">
-                            <Link href="/">
-                                <Image src="/logo.png" alt="logo" width={32} height={32} />
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-    )
+const Header: React.FC = () => {
+  return (
+    <header className="bg-blue-600 text-white shadow-md py-4">
+      <div className="container mx-auto flex justify-between items-center px-4">
+        <h3 className="font-bold text-2xl">
+     <Link href="/">Daily Contents</Link>
+  </h3>
+        <nav>
+          <ul className="flex space-x-6">
+            <li className="hover:underline">
+              <Link href="/posts">Posts</Link>
+            </li>
+            <li className="hover:underline">
+              <Link href="/users">Users</Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+  );
 }
 
 export default Header;

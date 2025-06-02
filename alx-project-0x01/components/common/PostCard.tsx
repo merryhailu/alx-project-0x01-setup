@@ -1,10 +1,10 @@
-const PostCard = ({ title, content }: { title: string, content: string }) => {
-    return (
-        <div className="bg-white rounded-lg shadow-md p-4">
-            <h2 className="text-lg font-bold">{title}</h2>
-            <p className="text-gray-600">{content}</p>
-        </div>
-    )
-}
-            
-export default PostCard;    
+import React from 'react';
+
+const PostCard: React.FC<{ title: string; description: string }> = ({ title, description }) => (
+  <div className="border p-4 rounded shadow-md">
+    <h2 className="text-xl font-semibold">{title}</h2>
+    <p>{description}</p>
+  </div>
+);
+
+export default PostCard;
