@@ -1,34 +1,48 @@
-import React from 'react';
-import { UserProps } from '@/interfaces';
-import UserCard from '@/components/common/UserCard';
-import Header from '@/components/layout/Header';
+import UserCard from "@/components/common/UserCard";
+import UserModal from "@/components/common/UserModal";
+import Header from "@/components/layout/Header";
+import { UserData } from "@/interfaces";
+import { useState } from "react";
 
-interface UsersProps {
-  posts: UserProps[];
-}
+const Users = ({ posts }: { posts: UserData[] }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [users, setUsers] = useState<UserData[]>(posts);
 
-const Users: React.FC<UsersProps> = ({ posts }) => {
+  const handleAddUser = (newUser: UserData) => {
+    setUsers([...users, { ...newUser, id: users.length + 1 }]);
+  };
+
   return (
-    <>
-    <Header />
-    <div className="p-8 flex flex-col items-center gap-4">
-      <h1 className="text-3xl mb-4 font-bold">Users Page</h1>
-      {posts.map((user) => (
-        <UserCard key={user.id} user={user} />
-      ))}
+    <div className="flex flex-col h-screen">
+      <Header />
+      <main className="p-4">
+        <div className="flex justify-between">
+          <h1 className="text-2xl font-semibold">Users</h1>
+          <button
+            className="bg-blue-700 text-white px-4 py-2 rounded"
+            onClick={() => setIsModalOpen(true)}
+          >
+            Add User
+          </button>
+        </div>
+        <div className="grid grid-cols-3 gap-4 mt-4">
+          {users.map((user) => (
+            <UserCard key={user.id} {...user} />
+          ))}
+        </div>
+      </main>
+      {isModalOpen && (
+        <UserModal onClose={() => setIsModalOpen(false)} onSubmit={handleAddUser} />
+      )}
     </div>
-    </>
   );
 };
 
 export async function getStaticProps() {
-  const response = await fetch('https://jsonplaceholder.typicode.com/users');
+  const response = await fetch("https://jsonplaceholder.typicode.com/users");
   const posts = await response.json();
-
   return {
-    props: {
-      posts,
-    },
+    props: { posts }
   };
 }
 
