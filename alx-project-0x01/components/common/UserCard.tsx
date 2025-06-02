@@ -1,25 +1,34 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { UserProps } from '@/interfaces';
 
-const UserCard: FC<{ user: UserProps }> = ({ user }) => {
+const UserCard: React.FC<UserProps> = ({
+  id,
+  name,
+  username,
+  email,
+  address,
+  phone,
+  website,
+  company,
+}) => {
   return (
     <div className="border p-4 rounded shadow-md w-full max-w-md">
-      <h2 className="text-xl font-semibold">{user.name} (@{user.username})</h2>
-      <p className="text-sm text-gray-600">{user.email}</p>
-      <p className="mt-2">📍 {user.address.city}, {user.address.street}</p>
-      <p>📞 {user.phone}</p>
+      <h2 className="text-xl font-semibold">{name} (@{username})</h2>
+      <p className="text-sm text-gray-600">{email}</p>
+      <p className="mt-2">📍 {address.city}, {address.street}</p>
+      <p>📞 {phone}</p>
       <p>
         🌐{' '}
         <a
-          href={`http://${user.website}`}
+          href={`http://${website}`}
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-500"
         >
-          {user.website}
+          {website}
         </a>
       </p>
-      <p className="mt-2 font-medium">🏢 {user.company.name}</p>
+      <p className="mt-2 font-medium">🏢 {company.name}</p>
     </div>
   );
 };
