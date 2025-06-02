@@ -1,15 +1,14 @@
-import { GetStaticProps } from 'next';
 import React from 'react';
 import { UserProps } from '@/interfaces';
 import UserCard from '@/components/common/UserCard';
 import Header from '@/components/layout/Header';
 
-interface UsersPageProps {
+interface UsersProps {
   posts: UserProps[];
 }
 
-const UsersPage: React.FC<UsersPageProps> = ({ posts }) => {
-  return ( 
+const Users: React.FC<UsersProps> = ({ posts }) => {
+  return (
     <>
     <Header />
     <div className="p-8 flex flex-col items-center gap-4">
@@ -22,8 +21,8 @@ const UsersPage: React.FC<UsersPageProps> = ({ posts }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const response = await fetch("https://jsonplaceholder.typicode.com/users");
+export async function getStaticProps() {
+  const response = await fetch('https://jsonplaceholder.typicode.com/users');
   const posts = await response.json();
 
   return {
@@ -31,6 +30,6 @@ export const getStaticProps: GetStaticProps = async () => {
       posts,
     },
   };
-};
+}
 
-export default UsersPage;
+export default Users;
